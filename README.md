@@ -37,6 +37,19 @@ If you are not a Github user, clone and download this repo and push to your flav
 2. Refactor this app to a React app with TypeScript
 3. Make sure the current feature is working fine after refactoring
 4. Provide some improvements on the UI&UX
+5. Follow the folder structure below:
+
+```
+- src:
+    - sidebar (This directory contains the `Sidebar.tsx` file, which handles the sidebar functionality.)
+        - Sidebar.tsx
+    - editPanel (This directory contains the `EditPanel.tsx` file, responsible for the edit panel functionality.)
+        - EditPanel.tsx
+    ...All other files
+```
+6. Do NOT include a `Save` button in the program. The program should automatically save all editing data and reflect these changes on the sidebar.
+
+Please ensure to maintain this structure for consistency across the project.
 i.e
 - in terms of layout: navbar, editor panel, preview panel
 - in terms of UX: adding confirmation/warning modal when user save/delete a note
@@ -47,6 +60,9 @@ i.e
 - Create a new button called `Import Notes`, which allow user to import notes in batch
 - Create a new button called `Export Notes`, which allow user to export all the notes from the local storage
 - Import & export files can be in csv or xml format
+- Minimize Unnecessary Re-renders.  
+e.g.
+Consider a scenario where two notes are displayed on the sidebar. If you edit and save the first note, only the first note should be re-rendered. The second note should remain unaffected and not re-render.
 
 ## How to Submit Your Test
 Commit and push your latest your changes to public repository, and share your URL to us.
