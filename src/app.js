@@ -1,64 +1,50 @@
-import NotesView from "./view";
-import NotesAPI from "./api";
+import { Flex, Layout } from 'antd';
+import Sidebar from './sidebar/Sidebar';
+import { Outlet } from 'react-router-dom';
 
-export default class App {
-  constructor(root) {
-    this.notes = [];
-    this.activeNote = null;
-    this.view = new NotesView(root, this._handlers());
+const { Content, Header, Sider } = Layout;
+const layoutStyle = {
+  overflow: 'hidden',
+  height: '100vh'
+};
+const headerStyle = {
+  color: '#fff',
+  fontWeight: 'bold',
+  fontSize: '20px',
+  paddingInline: 48,
+  lineHeight: '64px',
+  backgroundColor: '#223c55'
+};
+const siderStyle = {
+  padding: '10px',
+  textAlign: 'center',
+  lineHeight: '120px',
+  color: '#000',
+  backgroundColor: '#fff',
+  overflow: 'auto'
+};
+const contentStyle = {
+  padding: '10px',
+  textAlign: 'center',
+  minHeight: 120,
+  lineHeight: '120px',
+  color: '#000',
+  backgroundColor: '#fff'
+};
 
-    this._refreshNotes();
-  }
-
-  _refreshNotes() {
-    const notes = NotesAPI.getAllNotes();
-
-    this._setNotes(notes);
-
-    if (notes.length > 0) {
-      this._setActiveNote(notes[0]);
-    }
-  }
-
-  _setNotes(notes) {
-    this.notes = notes;
-    this.view.updateNoteList(notes);
-    this.view.updateNotePreviewVisibility(notes.length > 0);
-  }
-
-  _setActiveNote(note) {
-    this.activeNote = note;
-    this.view.updateActiveNote(note);
-  }
-
-  _handlers() {
-    return {
-      onNoteSelect: (noteId) => {
-        const selectedNote = this.notes.find((note) => note.id === noteId);
-        this._setActiveNote(selectedNote);
-      },
-      onNoteAdd: () => {
-        const newNote = {
-          title: "新建笔记",
-          body: "开始记录...",
-        };
-
-        NotesAPI.saveNote(newNote);
-        this._refreshNotes();
-      },
-      onNoteEdit: (title, body) => {
-        NotesAPI.saveNote({
-          id: this.activeNote.id,
-          title,
-          body,
-        });
-
-        this._refreshNotes();
-      },
-      onNoteDelete: (noteId) => {
-        NotesAPI.deleteNote(noteId);
-        this._refreshNotes();
-      },
-    };
-  }
+function App() {
+  return (
+    <div className="App">
+      <Flex gap='middle'></Flex>
+      <Layout style={layoutStyle}>
+        <Header style={headerStyle}>NOTE APP</Header>
+        <Layout>
+          <Sider width='20%' style={siderStyle}><Sidebar /></Sider>
+          <Content style={contentStyle}><Outlet/></Content>
+        </Layout>
+      </Layout>
+    </div>
+  );
 }
+
+export default App;
