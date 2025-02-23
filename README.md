@@ -1,6 +1,6 @@
-Note App pratice
-Use React+react-router
-Include ant-design, dayjs, lodash, mitt
+Note App pratice, 
+Using React+react-router, 
+Including ant-design, dayjs, lodash, mitt
 
 
 ## Available Scripts
